@@ -1,5 +1,6 @@
 package br.com.zupacademy.gabrielamartins.ecommerce.model;
 
+import br.com.zupacademy.gabrielamartins.ecommerce.validation.UniqueValue;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
