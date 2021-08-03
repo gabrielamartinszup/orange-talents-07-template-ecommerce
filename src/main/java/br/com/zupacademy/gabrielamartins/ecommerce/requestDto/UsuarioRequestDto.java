@@ -14,21 +14,21 @@ public class UsuarioRequestDto {
 
     @NotBlank(message = "Email não pode ser em branco!")
     @Email(message = "Insira um formato de e-mail válido!")
-    @UniqueValue(domainClass = Usuario.class, fieldName = "login", message = "Já existe um usuário com esse e-mail cadastrado!")
-    private String login;
+    @UniqueValue(domainClass = Usuario.class, fieldName = "email", message = "Já existe um usuário com esse e-mail cadastrado!")
+    private String email;
     @NotBlank
     @Length(min = 6, message = "A senha deve ter pelo menos 6 caracteres!")
     private String senha;
 
 
-    public UsuarioRequestDto(String login, String senha) {
-        this.login = login;
+    public UsuarioRequestDto(String email, String senha) {
+        this.email = email;
         this.senha = senha;
     }
 
     public Usuario converteParaUsuario(){
 
-        return new Usuario (login, new SenhaLimpa(senha));
+        return new Usuario (email, new SenhaLimpa(senha));
 
     }
 }
