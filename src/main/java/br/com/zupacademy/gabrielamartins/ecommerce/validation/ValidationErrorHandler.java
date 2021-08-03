@@ -39,6 +39,7 @@ public class ValidationErrorHandler {
         return handleBindException(e);
     }
 
+
     public String getErrorMessage(ObjectError error) {
         return messageSource.getMessage(error, LocaleContextHolder.getLocale());
     }
