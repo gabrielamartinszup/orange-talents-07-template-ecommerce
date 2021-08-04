@@ -1,25 +1,25 @@
 package br.com.zupacademy.gabrielamartins.ecommerce.controller;
 
 import br.com.zupacademy.gabrielamartins.ecommerce.config.UploaderFake;
-import br.com.zupacademy.gabrielamartins.ecommerce.config.security.AutenticacaoService;
+import br.com.zupacademy.gabrielamartins.ecommerce.model.Opiniao;
 import br.com.zupacademy.gabrielamartins.ecommerce.model.Produto;
 import br.com.zupacademy.gabrielamartins.ecommerce.model.Usuario;
 import br.com.zupacademy.gabrielamartins.ecommerce.repository.CategoriaRepository;
+import br.com.zupacademy.gabrielamartins.ecommerce.repository.OpiniaoRepository;
 import br.com.zupacademy.gabrielamartins.ecommerce.repository.ProdutoRepository;
 import br.com.zupacademy.gabrielamartins.ecommerce.requestDto.ImagemProdutoRequest;
+import br.com.zupacademy.gabrielamartins.ecommerce.requestDto.OpiniaoRequestDto;
 import br.com.zupacademy.gabrielamartins.ecommerce.requestDto.ProdutoRequestDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+
+
 import javax.transaction.Transactional;
 import javax.validation.Valid;
-import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -34,17 +34,16 @@ public class ProdutoController {
     @Autowired
     private UploaderFake uploaderFake;
 
-    @PersistenceContext
-    EntityManager manager;
-
     @Autowired
-    AutenticacaoService autenticacaoService;
+    private OpiniaoRepository opiniaoRepository;
+
+
 
     @PostMapping
     @Transactional
-    public ResponseEntity<Void> cadastrarProduto(@Valid @RequestBody ProdutoRequestDto produtoRequestDto, @AuthenticationPrincipal Usuario usuario){
+    public ResponseEntity<Void> cadastrarProduto(@Valid @RequestBody ProdutoRequestDto produtoRequestDto, @AuthenticationPrincipal Usuario usuario) {
         Optional<Produto> produtoObject = produtoRequestDto.converteParaProduto(categoriaRepository, usuario);
-        if(produtoObject.isPresent()){
+        if (produtoObject.isPresent()) {
             produtoRepository.save(produtoObject.get());
             return ResponseEntity.ok().build();
         }
@@ -65,11 +64,10 @@ public class ProdutoController {
          */
 
 
-
-       Optional<Produto> produtoObj = produtoRepository.findById(id);
-        if(produtoObj.isPresent()) {
-            Produto produto = produtoObj.get();
-            if(!produto.pertenceAoUsuario(usuario.getEmail())) return ResponseEntity
+        Optional<Produto> produtoObject = produtoRepository.findById(id);
+        if (produtoObject.isPresent()) {
+            Produto produto = produtoObject.get();
+            if (!produto.pertenceAoUsuario(usuario.getEmail())) return ResponseEntity
                     .status(HttpStatus.FORBIDDEN)
                     .body("Você não pode adicionar fotos a um produto que não é seu");
 
@@ -85,5 +83,21 @@ public class ProdutoController {
 
     }
 
+    @PostMapping("/{id}/opinioes")
+    @Transactional
+    public ResponseEntity<?> cadastrarOpiniao(@PathVariable Long id, @Valid @RequestBody OpiniaoRequestDto request, @AuthenticationPrincipal Usuario usuario) {
+
+        Optional<Produto> produtoObject = produtoRepository.findById(id);
+
+        if (produtoObject.isPresent()) {
+            Produto produto = produtoObject.get();
+
+            Opiniao opiniao = request.converteParaOpiniao(produto, usuario);
+            opiniaoRepository.save(opiniao);
+            return ResponseEntity.ok().build();
+
+        }
+            return ResponseEntity.badRequest().build();
+    }
 
 }

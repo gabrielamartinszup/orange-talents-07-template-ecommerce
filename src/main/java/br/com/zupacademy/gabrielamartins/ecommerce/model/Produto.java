@@ -84,7 +84,7 @@ public class Produto {
 
         this.imagens.addAll(imagens);
     }
-    
+
 
     public boolean pertenceAoUsuario(String email) {
         return this.usuario.getEmail().equals(email);
