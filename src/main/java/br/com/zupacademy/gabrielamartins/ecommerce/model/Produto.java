@@ -9,6 +9,7 @@ import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Entity
 public class Produto {
@@ -40,6 +41,13 @@ public class Produto {
 
     private LocalDateTime dataCriacao;
 
+    @OneToMany(mappedBy = "produto", cascade = CascadeType.MERGE)
+    private Set<ImagemProduto> imagens = new HashSet<>();
+
+    @Deprecated
+    public Produto() {
+    }
+
     public Produto(Set<CaracteristicaRequestDto> caracteristicaRequests, String descricao, Usuario usuario, String nome, BigDecimal valor,
                    Integer quantidade, Categoria categoria) {
 
@@ -66,6 +74,20 @@ public class Produto {
     @Override
     public int hashCode() {
         return Objects.hash(nome);
+    }
+
+
+    public void associaImagens(Set<String> links) {
+        Set<ImagemProduto> imagens = links.stream()
+                .map(link -> new ImagemProduto(this, link))
+                .collect(Collectors.toSet());
+
+        this.imagens.addAll(imagens);
+    }
+    
+
+    public boolean pertenceAoUsuario(String email) {
+        return this.usuario.getEmail().equals(email);
     }
 
 

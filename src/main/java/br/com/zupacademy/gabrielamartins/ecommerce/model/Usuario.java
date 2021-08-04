@@ -50,6 +50,10 @@ public class Usuario implements UserDetails {
         return id;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return null;
@@ -83,5 +87,15 @@ public class Usuario implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    @Override
+    public String toString() {
+        return "Usuario{" +
+                "id=" + id +
+                ", email='" + email + '\'' +
+                ", senha='" + senha + '\'' +
+                ", dataCadastro=" + dataCadastro +
+                '}';
     }
 }

@@ -2,6 +2,7 @@ package br.com.zupacademy.gabrielamartins.ecommerce.config.security;
 
 import br.com.zupacademy.gabrielamartins.ecommerce.model.Usuario;
 import br.com.zupacademy.gabrielamartins.ecommerce.repository.UsuarioRepository;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -18,6 +19,7 @@ public class AutenticacaoService implements UserDetailsService {
     public AutenticacaoService(UsuarioRepository usuarioRepository) {
         this.usuarioRepository = usuarioRepository;
     }
+
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
