@@ -98,4 +98,6 @@ public class Usuario implements UserDetails {
                 ", dataCadastro=" + dataCadastro +
                 '}';
     }
+
+
 }

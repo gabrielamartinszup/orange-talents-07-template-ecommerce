@@ -91,4 +91,7 @@ public class Produto {
     }
 
 
+    public Usuario getUsuario() {
+        return usuario;
+    }
 }
