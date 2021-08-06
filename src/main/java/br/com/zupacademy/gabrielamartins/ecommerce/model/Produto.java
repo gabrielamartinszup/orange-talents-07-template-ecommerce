@@ -153,6 +153,16 @@ public class Produto {
         return this.perguntas.stream().map(funcaoMapeadora).collect(Collectors.toCollection(TreeSet :: new));
     }
 
+    public boolean abateQuantidade(Integer quantidade){
+        Assert.isTrue(quantidade > 0, "A quantidade deve ser maior que zero para abater do estoque" + quantidade);
+
+        if(quantidade <= this.quantidade){
+            this.quantidade -= quantidade;
+            return true;
+        }
+        return false;
+    }
+
 
     public LocalDateTime getDataCriacao() {
         return dataCriacao;
