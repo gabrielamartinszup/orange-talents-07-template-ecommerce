@@ -13,7 +13,7 @@ public class OpiniaoRequestDto {
 
     @Min(1)
     @Max(5)
-    private Integer nota;
+    private Double nota;
     @NotBlank
     private String titulo;
     @NotBlank
@@ -22,7 +22,7 @@ public class OpiniaoRequestDto {
 
 
 
-    public OpiniaoRequestDto(Integer nota, String titulo, String descricao) {
+    public OpiniaoRequestDto(Double nota, String titulo, String descricao) {
         this.nota = nota;
         this.titulo = titulo;
         this.descricao = descricao;

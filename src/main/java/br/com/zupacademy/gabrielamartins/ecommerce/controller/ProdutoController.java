@@ -10,6 +10,7 @@ import br.com.zupacademy.gabrielamartins.ecommerce.repository.ProdutoRepository;
 import br.com.zupacademy.gabrielamartins.ecommerce.requestDto.ImagemProdutoRequest;
 import br.com.zupacademy.gabrielamartins.ecommerce.requestDto.OpiniaoRequestDto;
 import br.com.zupacademy.gabrielamartins.ecommerce.requestDto.ProdutoRequestDto;
+import br.com.zupacademy.gabrielamartins.ecommerce.responseDto.DetalheProdutoResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -99,5 +100,20 @@ public class ProdutoController {
         }
             return ResponseEntity.badRequest().build();
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<DetalheProdutoResponse> detalharProduto(@PathVariable Long id){
+
+        Optional<Produto> produtoObject = produtoRepository.findById(id);
+        if(produtoObject.isPresent()){
+
+            Produto produto = produtoObject.get();
+            return ResponseEntity.ok(new DetalheProdutoResponse(produto));
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+    }
+
+
+
 
 }

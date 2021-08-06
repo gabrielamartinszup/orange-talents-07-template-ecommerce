@@ -2,11 +2,11 @@ package br.com.zupacademy.gabrielamartins.ecommerce.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 @Entity
-public class Pergunta {
+public class Pergunta implements Comparable<Pergunta> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,5 +40,31 @@ public class Pergunta {
 
     public Usuario getDonoProduto() {
         return produto.getUsuario();
+    }
+
+    public LocalDateTime getMomentoCriacao() {
+        return momentoCriacao;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Pergunta pergunta = (Pergunta) o;
+        return Objects.equals(titulo, pergunta.titulo) && Objects.equals(produto, pergunta.produto) && Objects.equals(usuario, pergunta.usuario);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(titulo, produto, usuario);
+    }
+
+    @Override
+    public int compareTo(Pergunta o) {
+        return this.titulo.compareTo(o.titulo);
+    }
+
+    public String getTitulo() {
+        return titulo;
     }
 }

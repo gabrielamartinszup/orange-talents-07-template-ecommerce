@@ -9,6 +9,7 @@ import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Entity
@@ -44,6 +45,13 @@ public class Produto {
     @OneToMany(mappedBy = "produto", cascade = CascadeType.MERGE)
     private Set<ImagemProduto> imagens = new HashSet<>();
 
+    @OneToMany(mappedBy = "produto")
+    @OrderBy("titulo asc")
+    private SortedSet<Pergunta> perguntas = new TreeSet<>();
+
+    @OneToMany(mappedBy = "produto")
+    private final Set<Opiniao> opinioes = new HashSet<>();
+
     @Deprecated
     public Produto() {
     }
@@ -59,6 +67,7 @@ public class Produto {
         this.quantidade = quantidade;
         this.categoria = categoria;
         this.dataCriacao = LocalDateTime.now();
+
 
         Assert.isTrue(this.caracteristicas.size() >= 3, "Todo produto precisa ter no mínimo 3 características");
     }
@@ -94,4 +103,64 @@ public class Produto {
     public Usuario getUsuario() {
         return usuario;
     }
+
+    public Long getId() {
+        return id;
+    }
+
+
+    public Opinioes getOpinioes(){
+        return new Opinioes(this.opinioes);
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public Categoria getCategoria() {
+        return categoria;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public BigDecimal getValor() {
+        return valor;
+    }
+
+    public Integer getQuantidade() {
+        return quantidade;
+    }
+
+    public Set<Caracteristica> getCaracteristicas() {
+        return caracteristicas;
+    }
+
+    public SortedSet<Pergunta> getPerguntas() {
+        return perguntas;
+    }
+
+    public <T> Set<T> mapCaracteristicas(Function<Caracteristica, T> funcaoMapeadora){
+        return this.caracteristicas.stream().map(funcaoMapeadora).collect(Collectors.toSet());
+    }
+
+    public <T> Set<T> mapImagens(Function<ImagemProduto, T> funcaoMapeadora){
+        return this.imagens.stream().map(funcaoMapeadora).collect(Collectors.toSet());
+    }
+
+    public <T extends Comparable<T>> SortedSet<T> mapPerguntas(Function<Pergunta, T> funcaoMapeadora){
+        return this.perguntas.stream().map(funcaoMapeadora).collect(Collectors.toCollection(TreeSet :: new));
+    }
+
+
+    public LocalDateTime getDataCriacao() {
+        return dataCriacao;
+    }
+
+    public Set<ImagemProduto> getImagens() {
+        return imagens;
+    }
+
+
 }
