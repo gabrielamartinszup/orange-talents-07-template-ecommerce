@@ -1,4 +1,4 @@
-package br.com.zupacademy.gabrielamartins.ecommerce.config;
+package br.com.zupacademy.gabrielamartins.ecommerce.component;
 
 public interface Mailer {
 

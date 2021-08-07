@@ -1,5 +1,6 @@
-package br.com.zupacademy.gabrielamartins.ecommerce.config;
+package br.com.zupacademy.gabrielamartins.ecommerce.component;
 
+import br.com.zupacademy.gabrielamartins.ecommerce.component.Mailer;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 

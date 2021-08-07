@@ -72,6 +72,25 @@ public class Produto {
         Assert.isTrue(this.caracteristicas.size() >= 3, "Todo produto precisa ter no mínimo 3 características");
     }
 
+
+    @Override
+    public String toString() {
+        return "Produto{" +
+                "id=" + id +
+                ", caracteristicas=" + caracteristicas +
+                ", descricao='" + descricao + '\'' +
+                ", usuario=" + usuario +
+                ", categoria=" + categoria +
+                ", nome='" + nome + '\'' +
+                ", valor=" + valor +
+                ", quantidade=" + quantidade +
+                ", dataCriacao=" + dataCriacao +
+                ", imagens=" + imagens +
+                ", perguntas=" + perguntas +
+                ", opinioes=" + opinioes +
+                '}';
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

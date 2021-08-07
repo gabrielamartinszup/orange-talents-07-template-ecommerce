@@ -1,6 +1,6 @@
 package br.com.zupacademy.gabrielamartins.ecommerce.controller;
 
-import br.com.zupacademy.gabrielamartins.ecommerce.config.UploaderFake;
+import br.com.zupacademy.gabrielamartins.ecommerce.component.UploaderFake;
 import br.com.zupacademy.gabrielamartins.ecommerce.model.Opiniao;
 import br.com.zupacademy.gabrielamartins.ecommerce.model.Produto;
 import br.com.zupacademy.gabrielamartins.ecommerce.model.Usuario;

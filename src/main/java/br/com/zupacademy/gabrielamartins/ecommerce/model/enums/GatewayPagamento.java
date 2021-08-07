@@ -1,8 +1,9 @@
-package br.com.zupacademy.gabrielamartins.ecommerce.model;
+package br.com.zupacademy.gabrielamartins.ecommerce.model.enums;
 
 public enum GatewayPagamento {
 
     PAGSEGURO{
+
 
         @Override
         public String gerarUrlRetorno(Long idCompra){
@@ -19,5 +20,7 @@ public enum GatewayPagamento {
 
     };
 
-    abstract String gerarUrlRetorno(Long idCompra);
+
+
+    public abstract String gerarUrlRetorno(Long idCompra);
 }

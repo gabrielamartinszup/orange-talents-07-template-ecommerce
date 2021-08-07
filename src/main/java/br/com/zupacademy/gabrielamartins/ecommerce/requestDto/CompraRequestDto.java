@@ -1,7 +1,7 @@
 package br.com.zupacademy.gabrielamartins.ecommerce.requestDto;
 
 import br.com.zupacademy.gabrielamartins.ecommerce.model.Compra;
-import br.com.zupacademy.gabrielamartins.ecommerce.model.GatewayPagamento;
+import br.com.zupacademy.gabrielamartins.ecommerce.model.enums.GatewayPagamento;
 import br.com.zupacademy.gabrielamartins.ecommerce.model.Produto;
 import br.com.zupacademy.gabrielamartins.ecommerce.model.Usuario;
 import br.com.zupacademy.gabrielamartins.ecommerce.repository.ProdutoRepository;
